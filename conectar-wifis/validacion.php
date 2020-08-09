@@ -15,6 +15,10 @@ if (isset($_POST['namebd']) && !empty ($_POST['namebd']) &&
     }else{
         session_start();
         $_SESSION['conectado'] = 'Acceso autorizado';
+        $_SESSION['namebd'] = $bd;
+        $_SESSION['nameu'] = $nu;
+        $_SESSION['password'] = $pw;
+        $_SESSION['servname'] = $sn;
         header('Location: /pages/guardar.php');
     }
 } else {

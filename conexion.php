@@ -1,2 +1,2 @@
 <?php
-$conex = mysqli_connect('127.0.0.1', 'root', '', 'proywork') or die("Estamos en mantenimiento preventivo");
+$conex = mysqli_connect($_SESSION['servname'], $_SESSION['nameu'], $_SESSION['password'], $_SESSION['namebd']) or die("Estamos en mantenimiento preventivo");
