@@ -1,5 +1,5 @@
 <?php
-require_once (__DIR__.'/../conexion.php');
+require_once (__DIR__.'/../../conexion.php');
 $sql = 'select * FROM registro WHERE id_codigo = ' . $_POST['id'] . '';
 $query2 = mysqli_query($conex, $sql);
 $row2 = mysqli_fetch_array($query2);
