@@ -1,6 +1,6 @@
 <?php
 session_start();
-require  '../conexion.php';
+require_once (__DIR__.'/../conexion.php');
 header("Content-Type: text/html; charset=utf-8");
 switch ($_REQUEST['val']) {
     case 1: // Autenticacion de usuario

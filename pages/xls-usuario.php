@@ -1,6 +1,6 @@
 <?php
-require '../vendor/PhpSpreadsheet-master/vendor/autoload.php';
-require '../conexion.php';
+require_once (__DIR__.'/../vendor/PhpSpreadsheet-master/vendor/autoload.php');
+require_once (__DIR__.'/../conexion.php');
 use PhpOffice\PhpSpreadsheet\IOFactory;
 // Establecemos la ruta 
 $param = $_GET['token'];

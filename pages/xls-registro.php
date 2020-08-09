@@ -1,6 +1,6 @@
 <?php
-require '../vendor/PhpSpreadsheet-master/vendor/autoload.php';
-require '../conexion.php';
+require_once (__DIR__.'/../vendor/PhpSpreadsheet-master/vendor/autoload.php');
+require_once (__DIR__.'/../conexion.php');
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 $sql = "select * from registro where status = 1";

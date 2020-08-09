@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <?php
-require  '../conexion.php';
+require_once (__DIR__.'/../conexion.php');
 ?>
     <head>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8" />

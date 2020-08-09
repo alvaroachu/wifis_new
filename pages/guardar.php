@@ -1,8 +1,8 @@
+<?php
+require_once (__DIR__.'/../conexion.php');
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml">
-<?php
-require '../conexion.php';
-?>
     <head>
         <style>
             body {
@@ -188,4 +188,7 @@ require '../conexion.php';
             <h4 style="text-align: center;background-color: red;">Alvaro &copy;</h4>
         </footer>
     </body>
+<?php
+mysqli_close($conex);
+?>
 </html>
