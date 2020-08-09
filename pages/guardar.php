@@ -1,10 +1,11 @@
 <?php
+session_start();
 require_once(__DIR__ . '/../conexion.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <style>body{padding:10px}img{border:3px solid #000;border-radius:15px}</style>
+        <style>body{padding:10px}img{border:3px solid black;border-radius:15px}</style>
         <title>Informacion wifis</title>
         <!----     CSS        ------>
         <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -16,6 +17,21 @@ require_once(__DIR__ . '/../conexion.php');
         <!------- NUEVO ----->
     </head>
     <body>
+    <?php
+if(isset($_SESSION['mensaje'])){
+    ?>
+    <style>
+        .bg-danger{
+            text-align: center;
+            font-weight: bold;
+            padding: 30px;
+        }
+    </style>
+    <p class="bg-danger">¡No ha selecionado un fichero a importar!</p>
+    <?php
+    unset($_SESSION["mensaje"]);
+}
+?>
         <!-- Esto es mi codigo -->
         <div id="header">
             <h3 style="text-align: center;font-family: Comic Sans Ms;text-decoration: underline;">Información wifis:</h3>
