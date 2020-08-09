@@ -17,7 +17,8 @@ switch ($_REQUEST['val']) {
                 header('Location: /pages/xls-usuario.php?token='.time().'$'.$name);
                 echo '<script>window.location = "xls-usuario.php";</script>';
             } else {
-                echo "¡No se logro subir el ficheros!\n";
+                $_SESSION['mensaje'] = 'No se logro subir el ficheros';
+                header('Location: /pages/guardar.php');
             }
 
             echo 'Más información de depuración:';
