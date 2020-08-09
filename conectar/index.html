@@ -1,0 +1,61 @@
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title>Proyecto conectar MySQL</title>
+ <!----     CSS y JS       ------>
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <script  src="dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <style>
+        body{
+            background-color: #17A2B8;
+        }
+        .form1{
+            margin-top: 3%;
+            width: 700px;
+        }
+    </style>
+<form action="validacion.php" method="POST">
+    <?php
+    session_unset();
+    session_destroy();
+    ?>
+    <div class="container">
+        <div class="card form1">
+            <div class="card-header text-center">
+               <h3>FORMULARIO CONEXION A MYSQL</h3>
+            </div>
+        <div class="card-body">
+          <p class="card-text">A continuacion deberas introducir los detalles de conexion a tu base de datos, si no estas seguro de esta informacion contacta con tu prooveedor de servicios web.</p>
+          <div class="form-group">
+            <label for="namebdHelp">Nombre de la base de datos:</label>
+            <input type="text" class="form-control" id="namebd" name="namebd" aria-describedby="namebd" placeholder="Ingresar nombre de la base de datos ">
+            <small id="namebdHelp" class="form-text text-muted">Nombre de la base de datos que quieres usar.</small>
+          </div>
+          <div class="form-group">
+            <label for="nameuHelp">Nombre de usuario:</label>
+            <input type="text" class="form-control" id="nameu" name="nameu" aria-describedby="nameu" placeholder="Ingrese el nombre de usuario de su base de datos">
+            <small id="nameuHelp" class="form-text text-muted">Nombre de usuario de tu base de datos.</small>
+          </div>
+          <div class="form-group">
+            <label for="Password1">Contraseña:</label>
+            <input type="password" class="form-control" id="Password1" name="password" placeholder="Ingrese la contraseña de su base de datos">
+            <small id="Password1" class="form-text text-muted">La contraseña de tu base de datos.</small>
+
+          </div>
+          <div class="form-group">
+            <label for="servname">Servidor de la base de datos:</label>
+            <input type="text" class="form-control" id="servname" name="servname" aria-describedby="servname" placeholder="Ingrese el nombre de servidor web">
+            <small id="servname" class="form-text text-muted">Nombre del servidor web.</small>
+          </div>
+            <button type="submit" class="btn btn-primary">Enviar informacion</button>
+        </div>
+     
+      </div>
+               
+          
+  </div>
+</form>
+</body>
+</html>
