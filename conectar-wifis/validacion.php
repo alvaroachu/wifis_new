@@ -2,11 +2,13 @@
 if (isset($_POST['namebd']) && !empty ($_POST['namebd']) &&
     isset($_POST['nameu']) && !empty ($_POST['nameu']) &&
     isset($_POST['password']) &&
-    isset($_POST['servname']) && !empty ($_POST['servname'])) {
+    isset($_POST['servname']) && !empty ($_POST['servname']) &&
+    isset($_POST['ncolor']) && !empty ($_POST['ncolor'])) {
     $bd = $_POST['namebd'];
     $nu = $_POST['nameu'];
     $pw = $_POST['password'];
     $sn = $_POST['servname'];
+    $cl = $_POST['ncolor'];
     $conex = mysqli_connect($sn, $nu, $pw, $bd);
     if(!$conex){
         session_start();
@@ -19,6 +21,7 @@ if (isset($_POST['namebd']) && !empty ($_POST['namebd']) &&
         $_SESSION['nameu'] = $nu;
         $_SESSION['password'] = $pw;
         $_SESSION['servname'] = $sn;
+        $_SESSION['ncolor'] = $cl;
         header('Location: /pages/guardar.php');
     }
 } else {
