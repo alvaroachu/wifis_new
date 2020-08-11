@@ -3,7 +3,7 @@ if (isset($_POST['namebd']) && !empty ($_POST['namebd']) &&
     isset($_POST['nameu']) && !empty ($_POST['nameu']) &&
     isset($_POST['password']) &&
     isset($_POST['servname']) && !empty ($_POST['servname']) &&
-    isset($_POST['ncolor']) && !empty ($_POST['ncolor'])) {
+    isset($_POST['ncolor'])) {
     $bd = $_POST['namebd'];
     $nu = $_POST['nameu'];
     $pw = $_POST['password'];
