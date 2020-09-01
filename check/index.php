@@ -4,6 +4,7 @@
 function return_bytes($val) {
     $val = trim($val);
     $last = strtolower($val[strlen($val)-1]);
+    $val = intval($val);
     switch($last) {
         // El modificador 'G' está disponble desde PHP 5.1.0
         case 'g':
@@ -52,7 +53,8 @@ $flagExtension = true;
 $postMaxSizeLiteral = '50M';
 $memoryLimitLiteral = '256M';
 $uploadMaxFileSizeLiteral = '50M';
-
+$displayErrorLiteral = 'false';
+$registerGlobalsLiteral = 'false';
 /*************************************************************/
 // Configuraciones Actuales
 $versionActual = phpversion();
@@ -68,13 +70,27 @@ $flagVersion = (strcmp($versionMinima,$versionActual)==0)?true:false;
 if(!$flagVersion){
     $verM = explode('.',$versionMinima);
     $verA = explode('.',$versionActual);
-    if($verM[0] <= $verA[0] && $verM[1] <= $verA[1] && $verM[2] <= $verA[2]){
+    if($verA[0]>$verM[0]) {
         $flagVersion = true;
+    } elseif ($verA[0] < $verM[0]){
+        $flagVersion = false;
+    } else {
+        if ($verA[1]>$verM[1]) {
+            $flagVersion = true;
+        } elseif ($verA[1] < $verM[1]){
+            $flagVersion = false;
+        } else {
+           if ($verA[2] >= $verM[2]){
+               $flagVersion = true;
+           } else{
+               $flagVersion = false;
+            }
+        }
     }
 }
 
 /*************************************************************/
-// Configuracion de PHP
+// Configuracion Actual
 $flagConiguracion &= ( $displayError == $displayErrorActual )?true:false;
 $flagConiguracion &= ( $registerGlobals == $registerGlobalsActual )?true:false;
 $flagConiguracion &= ( $postMaxSize <= $postMaxSizeActual )?true:false;
@@ -128,8 +144,8 @@ foreach($extensiones as &$e){
                                                 ?>
                                                 Revisa las siguientes configuracines en el archivo php.ini<br/>
                                                 <?php
-                                                echo ( $displayError == $displayErrorActual )?'':'- display_errors = '.boolval($displayError).$EL;
-                                                echo ( $registerGlobals == $registerGlobalsActual )?'':'- register_globals = '.boolval($registerGlobals).$EL;
+                                                echo ( $displayError == $displayErrorActual )?'':'- display_errors = '.$displayErrorLiteral.$EL;
+                                                echo ( $registerGlobals == $registerGlobalsActual )?'':'- register_globals = '.$registerGlobalsLiteral.$EL;
                                                 echo ( $postMaxSize <= $postMaxSizeActual )?'':'- post_max_size minima '.$postMaxSizeLiteral.$EL;
                                                 echo ( $memoryLimit <= $memoryLimitActual )?'':'- memory_limit minima '.$memoryLimitLiteral.$EL;
                                                 echo ( $uploadMaxFileSize <= $uploadMaxFileSizeActual )?'':'- upload_max_filesize minima '.$uploadMaxFileSizeLiteral.$EL;
