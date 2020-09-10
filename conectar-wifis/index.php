@@ -1,5 +1,10 @@
 <?php
 session_start();
+$message = '';
+if (isset($_SESSION['error'])) {
+    $message = '<p class="bg-danger">¡Los datos estan incorrectos porfavor revice sus datos de acceso!</p>';
+    unset($_SESSION["error"]); 
+} 
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -8,16 +13,13 @@ session_start();
         <title>Conexion WIFIS MySQL</title>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
-        <link href="/conectar-wifis/css/bcPicker.css" rel="stylesheet">
+        <link href="/assets/css/bcPicker.css" rel="stylesheet">
         <style>.bg-danger {text-align: center;font-weight: bold;padding: 10px;}</style>
     </head>
     <body>
         <div class="container">
             <br>
-            <?php if (isset($_SESSION['error'])) { ?>
-            <p class="bg-danger">¡Los datos estan incorrectos porfavor revice sus datos de acceso!</p>
-            <?php unset($_SESSION["error"]); } ?>
-            <hr>
+            <?php echo $message; ?>
             <div class="card bg-light">
                 <article class="card-body mx-auto" style="max-width: 400px;">
                     <h4 class="card-title mt-3 text-center"><em class="fas fa-lock fa"></em> Conexion a Wifis MYSQL.</h4>
@@ -64,7 +66,7 @@ session_start();
         </div>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="/conectar-wifis/js/bcPicker.js"></script>
+        <script src="/assets/js/bcPicker.js"></script>
         <script>
             $('#bcPicker').bcPicker({colors: ['000000', '993300', '333300', '000080', '333399', '333333','800000', 'FF6600', '808000', '008000', '008080', '0000FF','666699', '808080', 'FF0000', 'FF9900', '99CC00', '339966','33CCCC', '3366FF', '800080', '999999', 'FF00FF', 'FFCC00','FFFF00', '00FF00', '00FFFF', '00CCFF', '993366', 'C0C0C0','FF99CC', 'FFCC99', 'FFFF99', 'CCFFFF', '99CCFF', 'FFFFFF'],});
             $(".bcPicker-color").click(function() {var a = $(this).css("background-color");$("#ncolor").val(a);});

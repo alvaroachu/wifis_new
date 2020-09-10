@@ -1,19 +1,22 @@
 <?php
 require  'conexion.php';
+session_start();
+$con = Conexion::getInstance();
+if(!$con->getInit()){
+  $con->init($_SESSION['sn'], $_SESSION['nu'], $_SESSION['pw'], $_SESSION['bd']);
+}
+$result = $con->registroStatus(1);
 ?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <!----     CSS y JS       ------>
+    <title>WiFi Guardar</title>
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="dist/js/bootstrap.min.js"></script>
   </head>
   <body>
     <style>
-      .form1 {
-        margin-top: 3%;
-        width: 700px;
-      }
+      .form1 {margin-top: 3%;width: 700px;}
     </style>
     <div class="container form1">
       <div class="row">
@@ -38,12 +41,7 @@ require  'conexion.php';
                   </tr>
                 </thead>
                 <tbody>
-                  <?php
-                  $sql = "select * from registro where status = '1'";
-                  $query = mysqli_query($conex, $sql);
-                  $num = mysqli_num_rows($query);
-                  while ($row = mysqli_fetch_array($query)) {
-                  ?>
+                  <?php while ($row = $result->fetch_assoc()) { ?>
                     <tr>
                       <td class="text-center"><?php echo $row['id_codigo']; ?></td>
                       <td class="text-center"><?php echo $row['codigo']; ?></td>
@@ -51,8 +49,7 @@ require  'conexion.php';
                       <td class="text-center"><?php echo $row['contrasena_ssid']; ?></td>
                       <td class="text-center"><?php echo $row['comentario']; ?></td>
                     </tr>
-                  <?php
-                  } ?>
+                  <?php } ?>
                 </tbody>
               </table>
             </div>
