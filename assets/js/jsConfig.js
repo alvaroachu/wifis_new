@@ -20,13 +20,6 @@ $(document).ready(function() {
     });
     
     $('ul.setup-panel li.active a').trigger('click');
-    
-    // DEMO ONLY //
-    $('#activate-step-2').on('click', function(e) {
-        $('ul.setup-panel li:eq(1)').removeClass('disabled');
-        $('ul.setup-panel li a[href="#step-2"]').trigger('click');
-        $(this).remove();
-    })
 });
 
 function validation(){
@@ -41,6 +34,39 @@ function validation(){
         if (this.readyState === 4) {
             var obj = JSON.parse(this.response);
             console.log(obj.status);
+            if(obj.status == 'success'){
+                alert('success');
+            } else{
+                alert('Error');
+            }
+            $('ul.setup-panel li:eq(1)').removeClass('disabled');
+            $('ul.setup-panel li a[href="#step-2"]').trigger('click');
+            // $('#activate-step-2').remove();
+        }else{
+            // Mensaje de error 
+        }
+    }
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send(
+        'email='+email+
+        '&password='+password+
+        '&servidorsmtp='+servidorsmtp+
+        '&security='+security+
+        '&puerto='+puerto
+    );
+}
+function save(){
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    var servidorsmtp = document.getElementById('servidorsmtp').value;
+    var security = document.getElementById('security').value;
+    var puerto = document.getElementById('puerto').value;
+    var xhttp = new XMLHttpRequest();
+    xhttp.open('POST','savedb.php',true);
+    xhttp.onreadystatechange = function() {
+        if (this.readyState === 4) {
+            var obj = JSON.parse(this.response);
+            console.log(obj.status);
             if(obj.status == 'error'){
                 alert('Error');
             }else if(obj.status == 'success'){
@@ -48,9 +74,9 @@ function validation(){
             } else{
                 alert('Error');
             }
-            $('ul.setup-panel li:eq(1)').removeClass('disabled');
-            $('ul.setup-panel li a[href="#step-2"]').trigger('click');
-            $('#activate-step-2').remove();
+            $('ul.setup-panel li:eq(2)').removeClass('disabled');
+            $('ul.setup-panel li a[href="#step-3"]').trigger('click');
+            // $('#activate-step-3').remove();
         }
     }
     xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');

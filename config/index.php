@@ -75,7 +75,7 @@
                                 </div>
                             </form>
                         </article>
-                    <button id="activate-step-2" class="btn btn-primary btn-lg" onclick='validation()'>Activate Step 2</button>
+                    <button id="activate-step-2" class="btn btn-primary btn-lg" onclick='validation()'>Validar</button>
                 </div>
             </div>
         </div>
@@ -97,6 +97,7 @@
             <div class="col-xs-12">
                 <div class="col-md-12 well">
                     <h1 class="text-center"> STEP 2</h1>
+                    <button id="activate-step-3" class="btn btn-primary btn-lg" onclick='save()'>Guardar</button>
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-require '../conectar/conexion.php';
+require '../conectar/conexionMySql.php';
 
 // Leer los parametros
 if($_SERVER['REQUEST_METHOD'] ==  'POST'){
@@ -23,7 +23,7 @@ if($_SERVER['REQUEST_METHOD'] ==  'POST'){
     }
     $mail_port = $_POST['puerto'];
 
-    $con = Conexion::getInstance();
+    $con = ConexionMySql::getInstance();
     if(!$con->getInit()){
         $con->init('192.168.56.1','admin','secret','database');
     }

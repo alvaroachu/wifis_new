@@ -1,7 +1,7 @@
 <?php
-require  'conexion.php';
+require  'conexionMySql.php';
 session_start();
-$con = Conexion::getInstance();
+$con = ConexionMySql::getInstance();
 if(!$con->getInit()){
   $con->init($_SESSION['sn'], $_SESSION['nu'], $_SESSION['pw'], $_SESSION['bd']);
 }
