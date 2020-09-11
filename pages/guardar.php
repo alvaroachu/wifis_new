@@ -1,11 +1,17 @@
 <?php
 session_start();
 if(isset($_SESSION['conectado'])){
-    require_once(__DIR__ . '/../conexion.php');
+    require_once (__DIR__ . '/../conectar/conexionMySql.php');
     unset($_SESSION["conectado"]);
 }else{
-    header('Location: /conectar-wifis/index.php');
+    header('Location: /conectar-wifis/');
 }
+$con = ConexionMySql::getInstance();
+if(!$con->getInit()){
+  $con->init($_SESSION['servname'], $_SESSION['nameu'], $_SESSION['password'], $_SESSION['namebd']);
+}
+$result = $con->registroStatus(1);
+$i = 1;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml">
@@ -15,28 +21,18 @@ if(isset($_SESSION['conectado'])){
         <!----     CSS        ------>
         <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <!----     JS        ------>
-        <script src="../vendor/bootstrap/js/jquery.min.js"></script>
-        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-        <script src="../conectar/dist/js/clipboard.min.js"></script>
         <!------- NUEVO ----->
     </head>
     <body>
-    <?php
-if(isset($_SESSION['mensaje'])){
-    ?>
-    <style>
-        .bg-danger{
-            text-align: center;
-            font-weight: bold;
-            padding: 30px;
+        <?php if(isset($_SESSION['mensaje'])){ ?>
+        <style>
+            .bg-danger{text-align: center;font-weight: bold;padding: 30px;}
+        </style>
+        <p class="bg-danger">¡No ha selecionado un fichero a importar!</p>
+        <?php
+            unset($_SESSION["mensaje"]);
         }
-    </style>
-    <p class="bg-danger">¡No ha selecionado un fichero a importar!</p>
-    <?php
-    unset($_SESSION["mensaje"]);
-}
-?>
+        ?>
         <!-- Esto es mi codigo -->
         <div id="header">
             <h3 style="text-align: center;font-family: Comic Sans Ms;text-decoration: underline;">Información wifis:</h3>
@@ -52,6 +48,11 @@ if(isset($_SESSION['mensaje'])){
                             <div class="row">
                                 <div class="col col-xs-6">
                                     <h3 class="panel-title"><b>CONSULTAR REGISTROS</b></h3>
+                                </div>
+                                <div class="col col-xs-6 text-right">
+                                    <a title="Incidencias" data-toggle="modal" data-target="modal-incidencias" href="xls-registro.php" target="_blank" class="btn btn-sm btn-primary btn-create">
+                                        <i class="fa fa-pencil-square-o"></i> Incidencias
+                                    </a>
                                 </div>
                                 <div class="col col-xs-6 text-right">
                                     <a href="xls-registro.php" target="_blank" class="btn btn-sm btn-primary btn-create">
@@ -78,34 +79,28 @@ if(isset($_SESSION['mensaje'])){
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-                                    $sql = "select * from registro where status = '1'";
-                                    $query = mysqli_query($conex, $sql);
-                                    $num = mysqli_num_rows($query);
-                                    $i = 1;
-                                    while ($row = mysqli_fetch_array($query)) {
-                                    ?>
-                                        <tr>
-                                            <td class="col1 text-center"><?php echo $row['id_codigo']; ?></td>
-                                            <td class="col2 text-center"><?php echo $row['codigo']; ?></td>
-                                            <td class="col3 text-center"><?php echo $row['nombre_ssid']; ?></td>
-                                            <td class="col4 text-center" id="codigo2<?php echo $i; ?>"><?php echo $row['contrasena_ssid']; ?></td>
-                                            <td class="col5 text-center">
-                                                <!-- Codigo usado en este ejemplo -->
-                                                <button type="button" class="bt1" data-clipboard-target="#codigo2<?php echo $i; ?>">Copiar contraseña</button>
-                                                <script>
-                                                    var clipboard2 = new Clipboard('.bt1');
-                                                    var clipboard3 = new Clipboard('.bt2');
-                                                </script>
-                                            </td>
-                                            <td class="col6 text-center"><?php echo $row['comentario']; ?></td>
-                                            <td class="col7 text-center">
-                                                <div class="btn-group">
-                                                    <a data-toggle="modal" data-target="modal-consultar" class="btn btn-default btn-sm" title="Modificar" id="<?php echo $row['id_codigo'] ?>"><i class="fa fa-pencil-square-o"></i></a>
-                                                    <a data-toggle="modal" data-target="modal-eliminar" class="btn btn-danger btn-sm" title="Eliminar" id="<?php echo $row['id_codigo'] ?>"><i class="fa fa-trash-o"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                    <?php while ($row = $result->fetch_assoc()) { ?>
+                                    <tr>
+                                        <td class="col1 text-center"><?php echo $row['id_codigo']; ?></td>
+                                        <td class="col2 text-center"><?php echo $row['codigo']; ?></td>
+                                        <td class="col3 text-center"><?php echo $row['nombre_ssid']; ?></td>
+                                        <td class="col4 text-center" id="codigo2<?php echo $i; ?>"><?php echo $row['contrasena_ssid']; ?></td>
+                                        <td class="col5 text-center">
+                                            <!-- Codigo usado en este ejemplo -->
+                                            <button type="button" class="bt1" data-clipboard-target="#codigo2<?php echo $i; ?>">Copiar contraseña</button>
+                                            <script>
+                                                var clipboard2 = new Clipboard('.bt1');
+                                                var clipboard3 = new Clipboard('.bt2');
+                                            </script>
+                                        </td>
+                                        <td class="col6 text-center"><?php echo $row['comentario']; ?></td>
+                                        <td class="col7 text-center">
+                                            <div class="btn-group">
+                                                <a data-toggle="modal" data-target="modal-consultar" class="btn btn-default btn-sm" title="Modificar" id="<?php echo $row['id_codigo'] ?>"><i class="fa fa-pencil-square-o"></i></a>
+                                                <a data-toggle="modal" data-target="modal-eliminar" class="btn btn-danger btn-sm" title="Eliminar" id="<?php echo $row['id_codigo'] ?>"><i class="fa fa-trash-o"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                     <?php
                                         $i++;
                                     } ?>
@@ -148,6 +143,22 @@ if(isset($_SESSION['mensaje'])){
             </div>
         </div>
         <!-----------------------------------fin Modal-->
+        <!-------------------Modal Incidencias-------------------------------------->
+        <div id="modal-incidencias" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Registro de Incidencias</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="incidencias_div"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-----------------------------------fin Modal-->
         <!-------------------Modal Eliminar------------------------------>
         <div id="modal-eliminar" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -168,9 +179,11 @@ if(isset($_SESSION['mensaje'])){
         <footer>
             <h4 style="text-align: center;background-color: <?php echo $_SESSION['ncolor'] ?>;"> <?php echo $_SESSION['nameu'] ?> &copy;</h4>
         </footer>
-        <script>$(document).ready(function(){$(".btn").on("click",function(){var a=$(this).attr("title"),n=$(this).attr("id");switch(a){case"Modificar":$(function(){$("#modal-consultar").modal(),$.ajax({url:"action/registro.editar.php",type:"post",data:"id="+n}).done(function(a){$("#consulta").html(a)})});break;case"Eliminar":$(function(){$("#modal-eliminar").modal(),$.ajax({url:"action/registro.eliminar.php",type:"post",data:"id="+n}).done(function(a){$("#eliminar").html(a)})})}}),$("#ssids, #comments").keyup(function(){var a=$("#ssids").val().trim(),n=$("#comments").val().trim(),i=$("#tablaList");i.find("td.col3:contains("+a+")").removeClass("no_cumple").addClass("cumple"),i.find("td.col6:contains("+n+")").removeClass("no_cumple").addClass("cumple"),i.find("td.col3:not(:contains("+a+"))").addClass("no_cumple").removeClass("cumple"),i.find("td.col6:not(:contains("+n+"))").addClass("no_cumple").removeClass("cumple"),i.find("tr").removeClass("fila_eliminar").show(),i.find("tr .no_cumple").each(function(){$(this).parent().addClass("fila_eliminar").hide()})})});</script>
+        <!----     JS        ------>
+        <script src="../vendor/bootstrap/js/jquery.min.js"></script>
+        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../conectar/dist/js/clipboard.min.js"></script>
+        <script src="../conectar/dist/js/clipboard.min.js"></script>
+        <script src="/assets/js/jsguardar.js"></script>
     </body>
-<?php
-mysqli_close($conex);
-?>
 </html>
