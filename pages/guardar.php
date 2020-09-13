@@ -2,7 +2,6 @@
 session_start();
 if(isset($_SESSION['conectado'])){
     require_once (__DIR__ . '/../conectar/conexionMySql.php');
-    unset($_SESSION["conectado"]);
 }else{
     header('Location: /conectar-wifis/');
 }
@@ -21,7 +20,10 @@ $i = 1;
         <!----     CSS        ------>
         <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <!------- NUEVO ----->
+        <!----     JS        ------>
+        <script src="../vendor/bootstrap/js/jquery.min.js"></script>
+        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../assets/js/clipboard.min.js"></script>
     </head>
     <body>
         <?php if(isset($_SESSION['mensaje'])){ ?>
@@ -49,12 +51,12 @@ $i = 1;
                                 <div class="col col-xs-6">
                                     <h3 class="panel-title"><b>CONSULTAR REGISTROS</b></h3>
                                 </div>
-                                <div class="col col-xs-6 text-right">
+                                <div class="col col-xs-3 text-right">
                                     <a title="Incidencias" data-toggle="modal" data-target="modal-incidencias" href="xls-registro.php" target="_blank" class="btn btn-sm btn-primary btn-create">
                                         <i class="fa fa-pencil-square-o"></i> Incidencias
                                     </a>
                                 </div>
-                                <div class="col col-xs-6 text-right">
+                                <div class="col col-xs-3 text-right">
                                     <a href="xls-registro.php" target="_blank" class="btn btn-sm btn-primary btn-create">
                                         Exportar en Excel
                                     </a>
@@ -180,10 +182,6 @@ $i = 1;
             <h4 style="text-align: center;background-color: <?php echo $_SESSION['ncolor'] ?>;"> <?php echo $_SESSION['nameu'] ?> &copy;</h4>
         </footer>
         <!----     JS        ------>
-        <script src="../vendor/bootstrap/js/jquery.min.js"></script>
-        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-        <script src="../conectar/dist/js/clipboard.min.js"></script>
-        <script src="../conectar/dist/js/clipboard.min.js"></script>
-        <script src="/assets/js/jsguardar.js"></script>
+        <script src="../assets/js/jsguardar.js"></script>
     </body>
 </html>

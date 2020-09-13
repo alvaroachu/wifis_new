@@ -1,6 +1,8 @@
 <?php
 use Dotenv\Dotenv;
-
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 require_once (__DIR__.'/../vendor/autoload.php');
 require_once (__DIR__.'/../conectar/conexionMySql.php');

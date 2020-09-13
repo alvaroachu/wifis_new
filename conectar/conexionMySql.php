@@ -27,6 +27,15 @@ class ConexionMySql extends Conexion{
             return $result;
         }
     }
+    public function setQuery3($query,$string,$codigo,$nombre,$fecha,$asunto,$comentarios){
+        if ($stmt = $this->conn->prepare($query)) {
+            $stmt->bind_param($string, $codigo, $nombre, $fecha, $asunto, $comentarios);
+            $stmt->execute();
+            $result = $stmt->affected_rows;
+            $stmt->close();
+            return $result;
+        }
+    }
     public function registroStatus($value){
         $conexion = static::getInstance();
         $conexion->open();
@@ -41,5 +50,34 @@ class ConexionMySql extends Conexion{
         $conexion->close();
         return $result;
     }
-    
+    public function getIdIncidencia($database){
+        $conexion = static::getInstance();
+        $conexion->open();
+        if ($stmt = $this->conn->prepare('SELECT `AUTO_INCREMENT` FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = \''.$database.'\' AND   TABLE_NAME   = \'incidencias\';')) {
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->close();
+        }
+        $conexion->close();
+        return $result;
+    }
+    public function insertIncidencia($codigo,$nombre,$fecha,$asunto,$comentarios){
+        $conexion = static::getInstance();
+        $conexion->open();
+        $result = $conexion->setQuery3('INSERT INTO incidencias (codigo,nombre,fechaHora,asunto,comentarios) values (?,?,?,?,?)','sssss',$codigo,$nombre,$fecha,$asunto,$comentarios);
+        $conexion->close();
+        return $result;
+    }
+    public function getConfiguration($value){
+        $conexion = static::getInstance();
+        $conexion->open();
+        if ($stmt = $this->conn->prepare('SELECT `value` FROM  `configuration` WHERE `name` = ?')) {
+            $stmt->bind_param('s', $value);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->close();
+        }
+        $conexion->close();
+        return $result;
+    }
 }

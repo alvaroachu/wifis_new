@@ -1,11 +1,12 @@
 <?php
-require_once (__DIR__.'/../vendor/PhpSpreadsheet-master/vendor/autoload.php');
-require_once (__DIR__.'/../conexion.php');
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-$sql = "select * from registro where status = 1";
-$query = mysqli_query($conex, $sql);
-$num = mysqli_num_rows($query);
+require_once ( __DIR__.'/../utils/bootstrap2.php' );
+session_start();
+$con = ConexionMySql::getInstance();
+if(!$con->getInit()){
+  $con->init($_SESSION['servname'], $_SESSION['nameu'], $_SESSION['password'], $_SESSION['namebd']);
+}
+$result = $con->registroStatus(1);
+
 $archivo = new Spreadsheet();
 $hoja = $archivo->getActiveSheet();
 $hoja->setCellValueByColumnAndRow(1, 1, 'id_codigo');
@@ -14,7 +15,7 @@ $hoja->setCellValueByColumnAndRow(3, 1, 'nombre_ssid');
 $hoja->setCellValueByColumnAndRow(4, 1, 'contrasena_ssid');
 $hoja->setCellValueByColumnAndRow(5, 1, 'comentario');
 $registro = 2;
-while ($row = mysqli_fetch_array($query)) {
+while ($row = $result->fetch_assoc()) {
     $hoja->setCellValueByColumnAndRow(1, $registro, $row['id_codigo']);
     $hoja->setCellValueByColumnAndRow(2, $registro, $row['codigo']);
     $hoja->setCellValueByColumnAndRow(3, $registro, $row['nombre_ssid']);

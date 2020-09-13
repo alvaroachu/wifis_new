@@ -1,6 +1,10 @@
 <?php
 require (__DIR__.'/../utils/bootstrap.php');
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 if($_SERVER['REQUEST_METHOD'] ==  'POST'){
     header('Content-Type: application/json');
     $mail_email = $_POST['email'];
@@ -34,9 +38,8 @@ if($_SERVER['REQUEST_METHOD'] ==  'POST'){
         $mail->Port       = $mail_port;                             // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
         //Recipients
-        $mail->setFrom($mail_email, 'Mailer');
-        $mail->addAddress($mail_email, 'Mailer');
-
+        $mail->setFrom($mail_email);
+        $mail->addAddress($mail_email);
         // Content
         $mail->isHTML(true);                                        // Set email format to HTML
         $mail->Subject = 'Test';

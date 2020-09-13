@@ -1,8 +1,12 @@
 <?php
-require_once (__DIR__.'/../vendor/PhpSpreadsheet-master/vendor/autoload.php');
-require_once (__DIR__.'/../conexion.php');
-use PhpOffice\PhpSpreadsheet\IOFactory;
-// Establecemos la ruta 
+require_once ( __DIR__.'/../utils/bootstrap2.php' );
+session_start();
+$con = ConexionMySql::getInstance();
+if(!$con->getInit()){
+  $con->init($_SESSION['servname'], $_SESSION['nameu'], $_SESSION['password'], $_SESSION['namebd']);
+}
+
+// Establecemos la ruta
 $param = $_GET['token'];
 $params = explode('$', $param);
 $filename = $params[1];
