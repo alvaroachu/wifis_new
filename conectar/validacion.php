@@ -1,4 +1,6 @@
 <?php
+require (__DIR__.'/../utils/bootstrap.php');
+
 if (
     isset($_POST['namebd']) && !empty($_POST['namebd']) &&
     isset($_POST['nameu']) && !empty($_POST['nameu']) &&
@@ -18,7 +20,6 @@ if (
     $_SESSION['sn'] = $sn;
     echo '<script>window.location = "guardar.php";</script>';
 } else {
-
     echo '<script>alert("Ingresar datos en los campos vacios");</script>';
     echo '<script>window.location = "index.html";</script>';
 }

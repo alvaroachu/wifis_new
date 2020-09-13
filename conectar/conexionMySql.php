@@ -1,5 +1,5 @@
 <?php
-require 'conexion.php';
+require (__DIR__.'/conexion.php');
 
 class ConexionMySql extends Conexion{
     public function open(){

@@ -1,5 +1,6 @@
 <?php
-require  'conexionMySql.php';
+require (__DIR__.'/../utils/bootstrap.php');
+
 session_start();
 $con = ConexionMySql::getInstance();
 if(!$con->getInit()){

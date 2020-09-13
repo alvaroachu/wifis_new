@@ -1,5 +1,5 @@
 <?php
-require '../patterns/Singleton.php';
+require (__DIR__.'/../patterns/Singleton.php');
 class Conexion extends Singleton{
     protected $host = null;
     protected $username = null;

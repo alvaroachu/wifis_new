@@ -1,5 +1,5 @@
 <?php
-require '../conectar/conexionMySql.php';
+require (__DIR__.'/../utils/bootstrap.php');
 
 // Leer los parametros
 if($_SERVER['REQUEST_METHOD'] ==  'POST'){
@@ -23,7 +23,7 @@ if($_SERVER['REQUEST_METHOD'] ==  'POST'){
 
     $con = ConexionMySql::getInstance();
     if(!$con->getInit()){
-        $con->init('192.168.56.1','admin','secret','database');
+        $con->init($_ENV['DB_HOST'],$_ENV['DB_USER'],$_ENV['DB_PASSWORD'],$_ENV['DB_DATABASE']);
     }
     $r1 = $con->updateConfiguration('mail_email',$mail_email);
     $r2 = $con->updateConfiguration('mail_password',$mail_password);

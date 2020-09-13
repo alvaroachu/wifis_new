@@ -1,8 +1,5 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-require '../vendor/autoload.php';
+require (__DIR__.'/../utils/bootstrap.php');
 
 if($_SERVER['REQUEST_METHOD'] ==  'POST'){
     header('Content-Type: application/json');
