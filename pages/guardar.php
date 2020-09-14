@@ -5,6 +5,10 @@ if(isset($_SESSION['conectado'])){
 }else{
     header('Location: /conectar-wifis/');
 }
+if(isset($_SESSION['footer'])){
+    $_SESSION['footer'] = $_SESSION['nameu'];
+}
+
 $con = ConexionMySql::getInstance();
 if(!$con->getInit()){
   $con->init($_SESSION['servname'], $_SESSION['nameu'], $_SESSION['password'], $_SESSION['namebd']);
@@ -54,6 +58,9 @@ $i = 1;
                                 <div class="col col-xs-3 text-right">
                                     <a title="Incidencias" data-toggle="modal" data-target="modal-incidencias" href="xls-registro.php" target="_blank" class="btn btn-sm btn-primary btn-create">
                                         <i class="fa fa-pencil-square-o"></i> Incidencias
+                                    </a>
+                                    <a title="Footer" data-toggle="modal" data-target="modal-footer" href="xls-registro.php" target="_blank" class="btn btn-sm btn-primary btn-create">
+                                        <i class="fa fa-pencil-square-o"></i> Editar footer
                                     </a>
                                 </div>
                                 <div class="col col-xs-3 text-right">
@@ -129,7 +136,7 @@ $i = 1;
                 </div>
             </div>
         </div>
-        <!-------------------Modal Modificar-------------------------------------->
+        <!--------------------------------Modal Modificar--------------------------------->
         <div id="modal-consultar" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
@@ -144,8 +151,43 @@ $i = 1;
                 </div>
             </div>
         </div>
-        <!-----------------------------------fin Modal-->
-        <!-------------------Modal Incidencias-------------------------------------->
+        <!-----------------------------------fin Modal------------------------------------>
+        <!----------------------------------Modal Footer---------------------------------->
+        <div id="modal-footer" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Editar Footer</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="consulta">
+                            <form class="form-horizontal" role="form" action="change.php" method="post">
+                                <div class="form-group">
+                                    <label for="cedula" class="col-lg-2 control-label">Nombre:</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Introduce el nuevo codigo" value="<?php echo $row2['codigo']; ?>">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nombre" class="col-lg-2 control-label">Color:</label>
+                                    <div class="col-lg-10">
+                                        <input type="color" id="color" name="color" value="<?php echo $_SESSION['ncolor']; ?>">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="submit" class="btn btn-primary" name="submit" value="Aceptar cambios" />
+                                    <button class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-----------------------------------fin Modal------------------------------------>
+        <!-------------------------------Modal Incidencias-------------------------------->
         <div id="modal-incidencias" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
@@ -160,8 +202,8 @@ $i = 1;
                 </div>
             </div>
         </div>
-        <!-----------------------------------fin Modal-->
-        <!-------------------Modal Eliminar------------------------------>
+        <!-----------------------------------fin Modal------------------------------------>
+        <!---------------------------------Modal Eliminar--------------------------------->
         <div id="modal-eliminar" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
@@ -176,10 +218,10 @@ $i = 1;
                 </div>
             </div>
         </div>
-        <!-----------------------------------fin Modal-->
+        <!-----------------------------------fin Modal------------------------------------>
         <!--Esto es mi codigo-->
         <footer>
-            <h4 style="text-align: center;background-color: <?php echo $_SESSION['ncolor'] ?>;"> <?php echo $_SESSION['nameu'] ?> &copy;</h4>
+            <h4 style="text-align: center;background-color: <?php echo $_SESSION['ncolor'] ?>;"> <?php echo $_SESSION['footer'] ?> &copy;</h4>
         </footer>
         <!----     JS        ------>
         <script src="../assets/js/jsguardar.js"></script>

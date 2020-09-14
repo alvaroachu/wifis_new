@@ -26,6 +26,12 @@ $(document).ready(function () {
                             $("#incidencias_div").html(a);
                         });
                 });
+                break;
+            case "Footer":
+                $(function () {
+                    $("#modal-footer").modal()
+                });
+                break;
         }
     }),
         $("#ssids, #comments").keyup(function () {
