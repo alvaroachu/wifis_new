@@ -17,27 +17,25 @@
                 <ul class="nav nav-pills nav-justified thumbnail setup-panel">
                     <li class="active"><a href="#step-1">
                             <h4 class="list-group-item-heading">Paso 1</h4>
-                            <p class="list-group-item-text">Formulario</p>
+                            <p class="list-group-item-text">Conexión al servidor de correo</p>
                         </a></li>
                     <li class="disabled"><a href="#step-2">
                             <h4 class="list-group-item-heading">Paso 2</h4>
-                            <p class="list-group-item-text">Second step description</p>
+                            <p class="list-group-item-text">Validación de la conección</p>
                         </a></li>
                     <li class="disabled"><a href="#step-3">
                             <h4 class="list-group-item-heading">Paso 3</h4>
-                            <p class="list-group-item-text">Third step description</p>
+                            <p class="list-group-item-text">Datos de conexión guardados</p>
                         </a></li>
                 </ul>
             </div>
         </div>
-
         <div class="row setup-content" id="step-1">
             <div class="col-xs-12">
                 <div class="col-md-12 well text-center">
-                    
                         <article class="card-body mx-auto" style="max-width: 400px; margin:auto">
-                            <h4 class="card-title mt-3 text-center"><em class="fas fa-lock fa"></em> Conexion a Wifis MYSQL.</h4>
-                            <p class="text-center">A continuacion introduce los detalles de conexion a la base de datos, si no estas seguro de esta informacion contacta con tu prooveedor de servicios web.</p>
+                            <h4 class="card-title mt-3 text-center"><em class="fas fa-lock fa"></em> Conexión al servidor de correo.</h4>
+                            <p class="text-center">A continuación introduce los detalles de conexion al servidor de correo electronico.</p>
                             <form action="validacion.php" method="POST">
                                 <div class="form-group input-group">
                                     <div class="input-group-prepend">
@@ -49,7 +47,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"> <em class="fa fa-key"></em> </span>
                                     </div>
-                                    <input id='password' name="password" class="form-control" placeholder="Ingrese la contraseña de base de datos" type="password">
+                                    <input id='password' name="password" class="form-control" placeholder="Ingrese la contraseña del correo" type="password">
                                 </div>
                                 <div class="form-group input-group">
                                     <div class="input-group-prepend">
@@ -79,32 +77,79 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <div class="row setup-content" id="step-2">
             <div class="col-xs-12">
-                <div class="col-md-12 well">
-                    <h1 class="text-center"> STEP 2</h1>
+                <div class="col-md-12 well text-center">
+                    <article class="card-body mx-auto" style="max-width: 400px; margin:auto">
+                        <h4 class="card-title mt-3 text-center"><em class="fas fa-lock fa"></em> Validacion de la conexión.</h4>
+                        <table class="table table-striped table-bordered table-sm">
+                            <thead>
+                            <th colspan="2" style="" id="validacion"></th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Correo:</td>
+                                <td id="email_val"> prueba@gmail.com </td>
+                            </tr>
+                            <tr>
+                                <td>Contraseña:</td>
+                                <td> ******** </td>
+                            </tr>
+                            <tr>
+                                <td>Servidor:</td>
+                                <td id="server_val"> smtp.gmail.com</td>
+                            </tr>
+                            <tr>
+                                <td>Puerto:</td>
+                                <td id="port_val"> 587</td>
+                            </tr>
+                            <tr>
+                                <td>Encriptación:</td>
+                                <td id="security_val"> TLS </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </article>
                     <button id="activate-step-3" class="btn btn-primary btn-lg" onclick='save()'>Guardar</button>
                 </div>
             </div>
         </div>
         <div class="row setup-content" id="step-3">
             <div class="col-xs-12">
-                <div class="col-md-12 well">
-                    <h1 class="text-center"> STEP 3</h1>
+                <div class="col-md-12 well text-center">
+                    <article class="card-body mx-auto" style="max-width: 400px; margin:auto">
+                        <h4 class="card-title mt-3 text-center"><em class="fas fa-lock fa"></em> Datos de conexión guardados.</h4>
+                        <p class="text-center">Sus datos han sido guardados de forma exitosa. Si desea realizar algun cambio puede
+                            dar click en el boton eliminar y volver a generar la conexion al servidor de correo.</p>
+                        <table class="table table-striped table-bordered table-sm">
+                            <thead>
+                            <th colspan="2"></th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Correo:</td>
+                                <td id="email_save"> prueba@gmail.com </td>
+                            </tr>
+                            <tr>
+                                <td>Contraseña:</td>
+                                <td> ******** </td>
+                            </tr>
+                            <tr>
+                                <td>Servidor:</td>
+                                <td id="server_save"> smtp.gmail.com</td>
+                            </tr>
+                            <tr>
+                                <td>Puerto:</td>
+                                <td id="port_save"> 587</td>
+                            </tr>
+                            <tr>
+                                <td>Encriptación:</td>
+                                <td id="security_save"> TLS </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </article>
+                    <button id="activate-step-3" class="btn btn-primary btn-lg" onclick='borrar()'>Eliminar</button>
                 </div>
             </div>
         </div>

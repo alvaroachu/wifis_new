@@ -49,13 +49,6 @@ if (isset($_SESSION['error'])) {
                             </div>
                             <input name="servname" class="form-control" placeholder="Ingrese el nombre de servidor web" type="text" required="on">
                         </div>
-                        <div class="form-group input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"> <em class="fas fa-tint"></em> </span>
-                            </div>
-                            <div class="form-control" id="bcPicker" style="padding:0px;border:0px"></div>
-                            <input type="text" name="ncolor" id="ncolor" style="height:0px;width:0px;border:0px">
-                        </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-block"> Acceder al sistema </button>
                         </div>

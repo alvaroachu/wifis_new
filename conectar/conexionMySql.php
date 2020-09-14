@@ -80,4 +80,11 @@ class ConexionMySql extends Conexion{
         $conexion->close();
         return $result;
     }
+    public function deleteConfiguration($name){
+        $conexion = static::getInstance();
+        $conexion->open();
+        $result = $conexion->setQuery2("UPDATE configuration SET value = ?, updated_time = now() WHERE name= ?",'ss',$name,'');
+        $conexion->close();
+        return $result;
+    }
 }
